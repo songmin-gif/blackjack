@@ -22,14 +22,14 @@ int CardTray[N_CARDSET*N_CARD];
 int cardIndex=0;
 
 //player info
-int dollar[N_MAX_USER];
-int n_user;
+int dollar[N_MAX_USER];	//dollars that each player has
+int n_user;		//number of users
 
 //yard info
-int cardhold[N_MAX_USER+1][N_MAX_CARDHOLD];
-int cardSum[N_MAX_USER];
-int bet[N_MAX_USER];
-int gameEnd=0;
+int cardhold[N_MAX_USER+1][N_MAX_CARDHOLD];	//cards that currently the player had
+int cardSum[N_MAX_USER];	//sum of the cards
+int bet[N_MAX_USER];	//current betting
+int gameEnd=0;	//game end flag
 
 //card array controllers
 
@@ -46,18 +46,19 @@ int mixCardTray(int index){
 //player setting
 int configUser(){
 	int user=0;
-	printf("게임 참여 인원:");
+	printf("number of game players :");
 	scanf("%d",&user, sizeof(user));
 	while (1){
 		if (user>5 || user<1)
 		{
-			printf("참여 인원은 1~5명 이어야합니다. ");
-			scan("%d", &user, sizeof(user)); 
+			printf("the number of players must be one to five.");
+			scanf("%d", &user, sizeof(user)); 
 		}
+	
 	else {
 		break;
 	}	
-} 
+}
 return user;	
 }
 
@@ -97,7 +98,7 @@ int main(int argc, char *argv[]) {
 	//set the number of plyers
 	MAX_USER = configUser();
 	
-	printf("참여인원: %d\n", MAX_USER);
+	printf("number of players: %d\n", MAX_USER);
 	int *pUserNum;
 	
 	for(i=0; i<MAX_USER; i++)
@@ -118,7 +119,7 @@ int main(int argc, char *argv[]) {
 	while(1){
 		isSame =0;
 		
-		printf("%d라운드\n", gameCount);
+		printf("%d round\n", gameCount);
 		
 		for(j=0;j<MAX_USER;j++){
 			isSame=0;
@@ -135,11 +136,11 @@ int main(int argc, char *argv[]) {
 			}
 			if (isSame ==0)
 			{
-				printf("%d번쨰 유저\n",j+1);
-				printf("카드를 뽑습니다\n");
+				printf("%d user \n",j+1);
+				printf("choose a card\n");
 				if(gameCount >1)
 				{
-					printf("뽑으시겠습니까?(y/n)");
+					printf("do you want to choose one?(y/n)");
 					char c;
 					c=getchar();
 					scan("%c",&c,sizeof(c));
@@ -156,22 +157,22 @@ int main(int argc, char *argv[]) {
 				if(num==1)
 				{
 					int a=0;
-					printf("A를 뽑았어요. 1또는 11중에 고르세요. (1/11중에 하나 입력)\n");
+					printf("chose A. choose between 1 or 11. (enter 1 or 11)\n");
 					scanf("%d",&a,sizeof(a));
 					while (a!=1 &&a!=11)
 					{
-						printf("1/11중의 하나 입력\n");
+						printf("enter 1 or 11\n");
 						scanf("%d",&a, sizeof(a));
 					}
-					printf("뽑은카드=%d, 점수:%d\n",num, a);
+					printf("chosen card=%d, score:%d\n",num, a);
 					pUserNum[j]=pUserNum[j]+a;
-					printf("총합:%d\n",pUserNum[j]);
+					printf("total score:%d\n",pUserNum[j]);
 				}
 				else
 				{
-					printf("뽑은카드=%d\n",num);
+					printf("chosen card=%d\n",num);
 					pUserNum[j]=pUserNum[j]+num; 
-					printf("뽑은카드:%d, 총합:%d\n",num, pUserNum[j]);
+					printf("chosen card:%d, total score:%d\n",num, pUserNum[j]);
 					count++; 
 				}
 			}
@@ -185,10 +186,10 @@ printf("\n---------------------------------------\n");
 	endCount=0;	
 }
 printf("game count: %d\n", gameCount);
-printf("각 유저점수\n");
+printf("each player's score'\n");
 	for(i=0;i<MAX_USER;i++)
 	{
-		printf("%d번째 유저점수:%d\n", i+1, pUserNum[i]);
+		printf("%d player's score':%d\n", i+1, pUserNum[i]);
 	}
 	
 	printf("--------------------------------result\n");	
@@ -196,12 +197,14 @@ printf("각 유저점수\n");
 	int subCount= 0;
 	int idx =0;
 	int min=0;
-	bool is winner = false;
+	int winner; 
+	
+	bool iswinner = false;
 	for(i=0; i<MAX_USER; i++)
 	{ 
 		if (pUserNum[i]>21)
 		{
-			printf("%d번째 유저 블랙잭 탈락\n",i+1);
+			printf("%d player blackjack lose\n",i+1);
 		}
 		else if (pUserNum[i] <21)
 		{
@@ -219,10 +222,10 @@ printf("각 유저점수\n");
 			idx=i;
 		}
 	}
-}
-if (!isWinner)
+
+	if (!iswinner)
 {
-	printf("%d번째유저 위너\n", idx+1);
+	printf("%d player winner\n", idx+1);
 }
  
 //Game Start -------
@@ -251,7 +254,8 @@ if (!isWinner)
 //} while (gameEnd==0);
 
 //checkWinner();
+
 free(pUserNum);
-system("pause");	
+system ("pause");	
 return 0;
 }
