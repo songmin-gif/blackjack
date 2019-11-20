@@ -17,21 +17,7 @@
 
 #define N_MIN_ENDCARD
 
-//card tray object
-int CardTray[N_CARDSET*N_CARD];
-int cardIndex=0;
 
-//player info
-int dollar[N_MAX_USER];	//dollars that each player has
-int n_user;		//number of users
-
-//yard info
-int cardhold[N_MAX_USER+1][N_MAX_CARDHOLD];	//cards that currently the player had
-int cardSum[N_MAX_USER];	//sum of the cards
-int bet[N_MAX_USER];	//current betting
-int gameEnd=0;	//game end flag
-
-//card array controllers
 
 //mix the card sets and put in the tray
 int mixCardTray(int index){
@@ -41,7 +27,7 @@ int mixCardTray(int index){
 					1,2,3,4,5,6,7,8,9,10,10,10,10};
 	return Card[index];
 }
-				
+
 //playing game fuctions
 //player setting
 int configUser(){
@@ -61,31 +47,9 @@ int configUser(){
 }
 return user;	
 }
+				
+//playing game fuctions
 
-//offering initial 2 cards
-void offerCards(void) {
-	int i;
-	//1. give two cards for each player
-	for(i=0; i<n_user; i++)
-	{
-		cardhold[i][0]= pullCard();
-		cardhold[i][1]= pullCard(); 
-	}
-	//2.give two cards for the dealer
-	cardhold[n_user][0] = pullCard();
-	cardhold[n_user][1] =pullCard();
-	
-	return;
-}
-
-void printUSerCardStatus(int user, int cardcnt){
-	int i;
-	
-	printf(" -> card:");
-	for(i=0; i<cardcnt; i++)
-		printCard(cardhold[user][i]);
-	scanf("\t:::");
-}
 
 int main(int argc, char *argv[]) {
 	int roundIndex=0;
