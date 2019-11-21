@@ -107,7 +107,7 @@ int main(int argc, char *argv[]) {
 					printf("do you want to choose one?(y/n)");
 					char c;
 					c=getchar();
-					scan("%c",&c,sizeof(c));
+					scanf("%c",&c,sizeof(c));
 					if(c!='y')
 					{
 						endCount++;
@@ -223,3 +223,4 @@ free(pUserNum);
 system ("pause");	
 return 0;
 }
+
