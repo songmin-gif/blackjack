@@ -15,10 +15,6 @@
 #define N_MAX_GO
 #define N_MAX_BET
 
-#define N_MIN_ENDCARD
-
-
-
 //mix the card sets and put in the tray
 int mixCardTray(int index){
 	int Card[52]={1,2,3,4,5,6,7,8,9,10,10,10,10,
@@ -32,9 +28,10 @@ int mixCardTray(int index){
 //player setting
 int configUser(){
 	int user=0;
-	printf("number of game players :");
-	scanf("%d",&user, sizeof(user));
+
 	while (1){
+			printf("number of game players :");
+			scanf("%d",&user, sizeof(user));
 		if (user>5 || user<1)
 		{
 			printf("the number of players must be one to five.");
@@ -107,7 +104,7 @@ int main(int argc, char *argv[]) {
 					printf("do you want to choose one?(y/n)");
 					char c;
 					c=getchar();
-					scanf("%c",&c,sizeof(c));
+					scanf("%c",&c);
 					if(c!='y')
 					{
 						endCount++;
@@ -122,11 +119,11 @@ int main(int argc, char *argv[]) {
 				{
 					int a=0;
 					printf("chose A. choose between 1 or 11. (enter 1 or 11)\n");
-					scanf("%d",&a,sizeof(a));
+					scanf("%d",&a);
 					while (a!=1 &&a!=11)
 					{
 						printf("enter 1 or 11\n");
-						scanf("%d",&a, sizeof(a));
+						scanf("%d",&a);
 					}
 					printf("chosen card=%d, score:%d\n",num, a);
 					pUserNum[j]=pUserNum[j]+a;
