@@ -118,12 +118,13 @@ int main(int argc, char *argv[]) {
 				if(num==1)
 				{
 					int a=0;
+					char c;
 					printf("chose A. choose between 1 or 11. (enter 1 or 11)\n");
-					scanf("%d",&a);
+					scanf("%c",&c);
 					while (a!=1 &&a!=11)
 					{
 						printf("enter 1 or 11\n");
-						scanf("%d",&a);
+						scanf("%c",&c);
 					}
 					printf("chosen card=%d, score:%d\n",num, a);
 					pUserNum[j]=pUserNum[j]+a;
